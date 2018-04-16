@@ -1,0 +1,57 @@
+{
+    "Attribute": [
+        "Kraft",
+        "Konstitution",
+        "Geschicklichkeit",
+        "Schnelligkeit",
+        "Intelligenz",
+        "Wille",
+        "Charisma"
+    ],
+    "Fertigkeiten": [
+        "Akrobatik",
+        "Ausweichen",
+        "Fischen",
+        "Jagen",
+        "Klettern",
+        "Orientierung",
+        "Schwimmen",
+        "Spuren lesen",
+        "Tarnung",
+        "Taktik",
+        "Wahrnehmung"
+    ],
+    "Kampfwerte": [
+		"Name",
+        "Angriffsstock",
+        "Angriffsfertigkeitspunkte",
+        "Initiative Stock",
+        "Initiative Würfel",
+        "Ausdauerverbrauch Angriff",
+        "Schaden Stock",
+        "Schaden Würfel"
+    ],
+    "Weitere Werte": [
+        "Lebensblock",
+        "Ausdauerblock",
+        "Manablock",
+        "Vorkommen",
+        "Laufleistung einfach",
+        "Laufleistung voll",
+        "Schwimmleistung einfach",
+        "Schwimmleistung voll",
+        "Flugleistung einfach",
+        "Flugleistung voll",
+        "Tragkraft einfach",
+        "Tragkraft voll",
+        "Stemmkraft",
+        "Zugkraft",
+        "Geistige Festigkeit",
+        "Magieresistenz",
+        "Magierenitenz",
+        "Rüstungsschutz natürlich",
+        "Rüstungsschutz magisch",
+        "Ausdauerverbrauch Rüstung",
+        "Bewegungsmalus"
+    ]
+}

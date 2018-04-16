@@ -1,0 +1,218 @@
+{
+    "Tiere": [
+        {
+            "Attribute": {
+                "Charisma": 1,
+                "Geschicklichkeit": 2,
+                "Intelligenz": 3,
+                "Konstitution": 4,
+                "Kraft": 10,
+                "Schnelligkeit": 12,
+                "Wille": 19
+            },
+            "Besondere Fähigkeiten": [
+                "Dunkelsicht",
+                "Kälteschutz IV"
+            ],
+            "Fertigkeiten": {
+                "Akrobatik": {
+                    "FP": 0,
+                    "Stock": 10
+                },
+                "Ausweichen": {
+                    "FP": 1,
+                    "Stock": 6
+                },
+                "Fischen": {
+                    "FP": 2,
+                    "Stock": 10
+                },
+                "Jagen": {
+                    "FP": 3,
+                    "Stock": 8
+                },
+                "Klettern": {
+                    "FP": 4,
+                    "Stock": 10
+                },
+                "Orientierung": {
+                    "FP": 5,
+                    "Stock": 18
+                },
+                "Schwimmen": {
+                    "FP": 6,
+                    "Stock": 12
+                },
+                "Spuren lesen": {
+                    "FP": 9,
+                    "Stock": 14
+                },
+                "Taktik": {
+                    "FP": 10,
+                    "Stock": 5
+                },
+                "Tarnung": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Wahrnehmung": {
+                    "FP": 0,
+                    "Stock": 0
+                }
+            },
+            "Kampfwerte": [
+                {
+                    "Angriffsfertigkeitspunkte": 0,
+                    "Angriffsstock": 0,
+                    "Ausdauerverbrauch Angriff": 0,
+                    "Initiative Stock": 0,
+                    "Initiative Würfel": "W6",
+                    "Name": "Waffe 1",
+                    "Schaden Stock": 0,
+                    "Schaden Würfel": "2W4"
+                },
+                {
+                    "Angriffsfertigkeitspunkte": 0,
+                    "Angriffsstock": 0,
+                    "Ausdauerverbrauch Angriff": 0,
+                    "Initiative Stock": 0,
+                    "Initiative Würfel": "W6",
+                    "Name": "Waffe 2",
+                    "Schaden Stock": 0,
+                    "Schaden Würfel": "2W4"
+                }
+            ],
+            "Name": "Seppl vom Dienst und Acker",
+            "Weitere Werte": {
+                "Ausdauerblock": 145,
+                "Ausdauerverbrauch Rüstung": 1,
+                "Bewegungsmalus": 0,
+                "Flugleistung einfach": 0,
+                "Flugleistung voll": 0,
+                "Geistige Festigkeit": 20,
+                "Laufleistung einfach": 22,
+                "Laufleistung voll": 44,
+                "Lebensblock": 33,
+                "Magierenitenz": 0,
+                "Magieresistenz": 99,
+                "Manablock": 0,
+                "Rüstungsschutz magisch": 0,
+                "Rüstungsschutz natürlich": 4,
+                "Schwimmleistung einfach": 5,
+                "Schwimmleistung voll": 10,
+                "Stemmkraft": 90,
+                "Tragkraft einfach": 35,
+                "Tragkraft voll": 70,
+                "Vorkommen": 8,
+                "Zugkraft": 180
+            }
+        },
+        {
+            "Attribute": {
+                "Charisma": 6,
+                "Geschicklichkeit": 6,
+                "Intelligenz": 6,
+                "Konstitution": 6,
+                "Kraft": 6,
+                "Schnelligkeit": 6,
+                "Wille": 6
+            },
+            "Besondere Fähigkeiten": [
+                "Dunkelsicht",
+                "Kälteschutz IV"
+            ],
+            "Fertigkeiten": {
+                "Akrobatik": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Ausweichen": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Fischen": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Jagen": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Klettern": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Orientierung": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Schwimmen": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Spuren lesen": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Taktik": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Tarnung": {
+                    "FP": 0,
+                    "Stock": 0
+                },
+                "Wahrnehmung": {
+                    "FP": 0,
+                    "Stock": 0
+                }
+            },
+            "Kampfwerte": [
+                {
+                    "Angriffsfertigkeitspunkte": 0,
+                    "Angriffsstock": 0,
+                    "Ausdauerverbrauch Angriff": 0,
+                    "Initiative Stock": 0,
+                    "Initiative Würfel": "W6",
+                    "Name": "Waffe 1",
+                    "Schaden Stock": 0,
+                    "Schaden Würfel": "2W4"
+                },
+                {
+                    "Angriffsfertigkeitspunkte": 0,
+                    "Angriffsstock": 0,
+                    "Ausdauerverbrauch Angriff": 0,
+                    "Initiative Stock": 0,
+                    "Initiative Würfel": "W6",
+                    "Name": "Waffe 2",
+                    "Schaden Stock": 0,
+                    "Schaden Würfel": "2W4"
+                }
+            ],
+            "Name": "NameOfAnimal",
+            "Weitere Werte": {
+                "Ausdauerblock": 0,
+                "Ausdauerverbrauch Rüstung": 0,
+                "Bewegungsmalus": 0,
+                "Flugleistung einfach": 0,
+                "Flugleistung voll": 0,
+                "Geistige Festigkeit": 0,
+                "Laufleistung einfach": 0,
+                "Laufleistung voll": 0,
+                "Lebensblock": 0,
+                "Magierenitenz": 0,
+                "Magieresistenz": 0,
+                "Manablock": 0,
+                "Rüstungsschutz magisch": 0,
+                "Rüstungsschutz natürlich": 0,
+                "Schwimmleistung einfach": 0,
+                "Schwimmleistung voll": 0,
+                "Stemmkraft": 0,
+                "Tragkraft einfach": 0,
+                "Tragkraft voll": 0,
+                "Vorkommen": 0,
+                "Zugkraft": 0
+            }
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/MetaData_Animals.Arx.json</file>
+        <file>res/Latex_Header.tex</file>
+    </qresource>
+</RCC>
