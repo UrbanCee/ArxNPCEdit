@@ -20,8 +20,10 @@ public:
     QString toTexMinipageString() const ;
 
     static void createEmptyAnimalFile(QString filename);
-    static QVector<AnimalData> loadAnimalFile(QString filename);
-    static void createTexFileFromAnimalDataArray(QVector<AnimalData> &, QString filename);
+    static QVector<AnimalData> loadAnimalFile(const QString &filename);
+    static bool writeAnimalFile(const QVector<AnimalData> &,const QString &);
+    static void createTexFileFromAnimalDataArray(QVector<AnimalData> &,const QString &filename);
+    static QJsonObject metaData;
 
     QJsonObject & obj(){return (*this);}
     const QJsonObject & obj() const {return (*this);}

@@ -11,30 +11,67 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>AT NPC to TeX Editor</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QComboBox" name="comboAnimalSelector"/>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEditName"/>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QLabel" name="labelNPC">
+        <property name="text">
+         <string>NPC:</string>
         </property>
-        <property name="sizeHint" stdset="0">
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboAnimalSelector">
+        <property name="minimumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>400</width>
+          <height>0</height>
          </size>
         </property>
-       </spacer>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::InsertAtCurrent</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEditName">
+        <property name="placeholderText">
+         <string>Den Namen des NSCs hier eingeben!</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonDeleteCurrent">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Löschen</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonAddNew">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Hinzufügen</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -71,7 +108,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QPlainTextEdit" name="plainTextEdit">
+          <widget class="QPlainTextEdit" name="textEditSpecials">
            <property name="minimumSize">
             <size>
              <width>200</width>
@@ -116,6 +153,16 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuDatei">
+    <property name="title">
+     <string>Datei</string>
+    </property>
+    <addaction name="actionNPC_Datei_laden"/>
+    <addaction name="actionNPC_Datei_speichern"/>
+    <addaction name="separator"/>
+    <addaction name="actionTEX_File_erzeugen"/>
+   </widget>
+   <addaction name="menuDatei"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -126,6 +173,21 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionNPC_Datei_laden">
+   <property name="text">
+    <string>NPC Datei laden</string>
+   </property>
+  </action>
+  <action name="actionNPC_Datei_speichern">
+   <property name="text">
+    <string>NPC Datei speichern</string>
+   </property>
+  </action>
+  <action name="actionTEX_File_erzeugen">
+   <property name="text">
+    <string>TEX-File erzeugen</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

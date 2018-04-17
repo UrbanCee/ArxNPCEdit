@@ -7,6 +7,8 @@
 #include <QLineEdit>
 #include <QJsonObject>
 #include <QVector>
+#include <QPushButton>
+#include <QLayout>
 #include "chardata.h"
 #include "texwriter.h"
 #include "jsonclasses.h"
@@ -15,9 +17,9 @@ class CObjectInterface
 {
 public:
     CObjectInterface(const QString &name);
-    virtual QJsonValue getJsonValue() = 0;
+    virtual QJsonValue getJsonValue() const = 0;
     virtual void setJsonValue(QJsonValue) = 0;
-    QString getName(){return qstrName;}
+    QString getName() const {return qstrName;}
 protected:
     QString qstrName;
 };
@@ -28,7 +30,7 @@ class CAttributeSpinBox : public QSpinBox, public CObjectInterface
     Q_OBJECT
 public:
     CAttributeSpinBox(QWidget *, const QString &);
-    QJsonValue getJsonValue() {return QJsonValue(value());}
+    QJsonValue getJsonValue() const {return QJsonValue(value());}
     void setJsonValue(QJsonValue value){setValue(value.toInt());}
 };
 
@@ -39,7 +41,7 @@ public:
     CSkillSpinBox(QWidget *, const QString &);
     QString getDice();
     static QString getDice(int);
-    QJsonValue getJsonValue() {return QJsonValue(value());}
+    QJsonValue getJsonValue() const {return QJsonValue(value());}
     void setJsonValue(QJsonValue value){setValue(value.toInt());}
 public slots:
     void updateDice();
@@ -52,12 +54,12 @@ class CSkillObject : public QObject, public CObjectInterface
     Q_OBJECT
 public:
     CSkillObject(QWidget *parent, const QString &);
-    QJsonObject getSkillObj();
+    QJsonObject getSkillObj() const;
     CAttributeSpinBox *boxStock;
     CSkillSpinBox *boxFP;
     QLabel *labelDice, *labelSkillName;
     void setValues(QJsonObject);
-    QJsonValue getJsonValue() {return QJsonValue(getSkillObj());}
+    QJsonValue getJsonValue() const {return QJsonValue(getSkillObj());}
     void setJsonValue(QJsonValue value);
 public slots:
     void changeEnableStatus(int i);
@@ -68,7 +70,7 @@ class CAttributeLineEdit : public QLineEdit, public CObjectInterface
     Q_OBJECT
 public:
     CAttributeLineEdit(QWidget *, const QString &, const QString &);
-    QJsonValue getJsonValue() {return QJsonValue(text());}
+    QJsonValue getJsonValue() const {return QJsonValue(text());}
     void setJsonValue(QJsonValue value){setText(value.toString());}
 private:
 };
@@ -80,6 +82,25 @@ class CWeaponObject : public QObject
 public:
     CWeaponObject(QWidget *parent);
     CWeaponObject(QWidget *parent,QJsonObject weapon);
+    ~CWeaponObject();
+    void setToValues(const QJsonObject &);
+    QJsonObject getJsonObject() const;
+    static void loadMetaData();
+    QHBoxLayout *hboxName;
+    QHBoxLayout *hboxAttack;
+    QHBoxLayout *hboxIni;
+    QHBoxLayout *hboxAV;
+    QHBoxLayout *hboxDmg;
+    void createLayouts();
+public slots:
+    void removeThisObject();
+signals:
+    void removeMe(CWeaponObject *);
+private:
+    static QStringList metaData;
+    void initialize(QWidget *);
+    QVector<CObjectInterface *> weaponObjects;
+
     CAttributeLineEdit *edtName;
     CAttributeSpinBox *boxAngriffStock;
     CSkillSpinBox *boxAngriffFP;
@@ -89,12 +110,8 @@ public:
     CAttributeSpinBox *boxAvAngr;
     CAttributeLineEdit *edtDmgDice;
     CAttributeSpinBox *boxDmgStock;
-    void setToValues(const QJsonObject &);
-    static void loadMetaData();
-private:
-    static QStringList metaData;
-    void initialize(QWidget *);
-    QVector<CObjectInterface *> weaponObjects;
+    QPushButton *butDelete;
+
 };
 
 

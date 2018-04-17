@@ -9,7 +9,7 @@ CObjectInterface::CObjectInterface(const QString &name)
 CAttributeSpinBox::CAttributeSpinBox(QWidget *parent, const QString &name)
     :QSpinBox(parent),CObjectInterface(name)
 {
-        setRange(0,99);
+        setRange(-10,999);
         setValue(0);
 }
 
@@ -41,7 +41,7 @@ CSkillObject::CSkillObject(QWidget *parent, const QString &name)
     connect(boxStock,SIGNAL(valueChanged(int)),this,SLOT(changeEnableStatus(int)));
 }
 
-QJsonObject CSkillObject::getSkillObj()
+QJsonObject CSkillObject::getSkillObj() const
 {
     QJsonObject obj;
     obj.insert("Stock",boxStock->value());
@@ -133,11 +133,45 @@ CWeaponObject::CWeaponObject(QWidget *parent, QJsonObject weapon)
     setToValues(weapon);
 }
 
+CWeaponObject::~CWeaponObject()
+{
+    QLayout *layout = edtName->parentWidget()->layout();
+    layout->removeWidget(edtName);
+    layout->removeWidget(boxAngriffStock);
+    layout->removeWidget(boxAngriffFP);
+    layout->removeWidget(labelDice);
+    layout->removeWidget(boxIniStock);
+    layout->removeWidget(edtIniDice);
+    layout->removeWidget(boxAvAngr);
+    layout->removeWidget(edtDmgDice);
+    layout->removeWidget(boxDmgStock);
+    layout->removeWidget(butDelete);
+    delete edtName;
+    delete boxAngriffStock;
+    delete boxAngriffFP;
+    delete labelDice;
+    delete boxIniStock;
+    delete edtIniDice;
+    delete boxAvAngr;
+    delete edtDmgDice;
+    delete boxDmgStock;
+    delete butDelete;
+}
+
 void CWeaponObject::setToValues(const QJsonObject &weapon)
 {
     foreach (CObjectInterface *obj,weaponObjects) {
         obj->setJsonValue(weapon[obj->getName()]);
     }
+}
+
+QJsonObject CWeaponObject::getJsonObject() const
+{
+    QJsonObject weaponObject;
+    foreach (CObjectInterface *obj,weaponObjects) {
+        weaponObject.insert(obj->getName(),obj->getJsonValue());
+    }
+    return weaponObject;
 }
 
 void CWeaponObject::loadMetaData()
@@ -150,10 +184,38 @@ void CWeaponObject::loadMetaData()
         metaData << (*it).toString();
 }
 
+void CWeaponObject::createLayouts()
+{
+    hboxName = new QHBoxLayout;
+    hboxName->addWidget(edtName);
+    hboxName->addWidget(butDelete);
+    hboxAttack = new QHBoxLayout;
+    hboxAttack->addWidget(boxAngriffStock);
+    hboxAttack->addWidget(boxAngriffFP);
+    hboxAttack->addWidget(labelDice);
+    hboxIni = new QHBoxLayout;
+    hboxIni->addWidget(boxIniStock);
+    hboxIni->addWidget(edtIniDice);
+    hboxAV = new QHBoxLayout;
+    hboxAV->addWidget(boxAvAngr);
+    hboxAV->addStretch(100);
+    hboxDmg = new QHBoxLayout;
+    hboxDmg->addWidget(edtDmgDice);
+    hboxDmg->addWidget(boxDmgStock);
+}
+
+void CWeaponObject::removeThisObject()
+{
+    emit removeMe(this);
+}
+
 void CWeaponObject::initialize(QWidget *parent)
 {
     if (weaponObjects.size()>0)
         return;
+    butDelete = new QPushButton("-",parent);
+    connect(butDelete,SIGNAL(clicked(bool)),this,SLOT(removeThisObject()));
+    butDelete->setMaximumWidth(30);
     edtName = new CAttributeLineEdit(parent,metaData.at(0),"Angriffsart");
     boxAngriffStock = new CAttributeSpinBox(parent,metaData.at(1));
     boxAngriffFP = new CSkillSpinBox(parent,metaData.at(2));
@@ -172,6 +234,8 @@ void CWeaponObject::initialize(QWidget *parent)
     weaponObjects.append(boxAvAngr);
     weaponObjects.append(boxDmgStock);
     weaponObjects.append(edtDmgDice);
+
+    createLayouts();
 }
 
 

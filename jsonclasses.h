@@ -4,8 +4,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-bool writeJson(QString filename, QJsonObject object);
+bool writeJson(const QString &filename,const QJsonObject &object);
 
-QJsonObject readJson(QString filename);
+QJsonObject readJson(const QString &filename);
 
 #endif // JSONCLASSES_H

@@ -2,7 +2,7 @@
 #include <QtCore>
 #include <QDebug>
 
-bool writeJson(QString filename, QJsonObject object)
+bool writeJson(const QString &filename, const QJsonObject &object)
 {
     QFile outFile( filename );
     if ( !outFile.open(QIODevice::WriteOnly) )
@@ -15,7 +15,7 @@ bool writeJson(QString filename, QJsonObject object)
 }
 
 
-QJsonObject readJson(QString filename)
+QJsonObject readJson(const QString &filename)
 {
     QFile inFile( filename );
     if ( !inFile.open(QIODevice::ReadOnly) )

@@ -1,13 +1,15 @@
 #include "chardata.h"
 #include <QDebug>
 
-QVector<AnimalData> AnimalData::loadAnimalFile(QString filename)
+QJsonObject AnimalData::metaData = readJson(":/res/MetaData_Animals.Arx.json");
+
+QVector<AnimalData> AnimalData::loadAnimalFile(const QString &filename)
 {
     QVector<AnimalData> animals;
     QJsonObject fileObject=readJson(filename);
     if (!fileObject["Tiere"].isArray())
     {
-        qDebug() << "No Arrow unter \"Tiere\" - Key ";
+        qDebug() << "No Array under \"Tiere\" - Key ";
         return animals;
     }
     QJsonArray animalArray = fileObject["Tiere"].toArray();
@@ -25,12 +27,58 @@ QVector<AnimalData> AnimalData::loadAnimalFile(QString filename)
     return animals;
 }
 
-AnimalData::AnimalData():QJsonObject(){}
+bool AnimalData::writeAnimalFile(const QVector<AnimalData> &animalData, const QString &filename)
+{
+    QJsonObject fileObject;
+    QJsonArray animalArray;
+    foreach (const AnimalData &animal,animalData)
+    {
+        animalArray.append(animal);
+    }
+    fileObject.insert("Tiere",animalArray);
+    return writeJson(filename,fileObject);
+}
+
+
+AnimalData::AnimalData():QJsonObject(){
+    QJsonObject attributes;
+    QJsonArray attrNames = metaData["Attribute"].toArray();
+    for (QJsonArray::const_iterator it=attrNames.begin();it!=attrNames.end();it++)
+    {
+        attributes.insert((*it).toString(),0);
+    }
+    insert("Attribute",attributes);
+
+    QJsonObject additionalData;
+    QJsonArray additionalDataMeta = metaData["Weitere Werte"].toArray();
+    for (QJsonArray::const_iterator it=additionalDataMeta.begin();it!=additionalDataMeta.end();it++)
+    {
+        additionalData.insert((*it).toString(),0);
+    }
+    insert("Weitere Werte",additionalData);
+
+    QJsonArray specials;
+    insert("Besondere Fähigkeiten",specials);
+
+    QJsonObject skills;
+    QJsonArray skillNames = metaData["Fertigkeiten"].toArray();
+    for (QJsonArray::const_iterator it=skillNames.begin();it!=skillNames.end();it++)
+    {
+        QJsonObject skill;
+        skill.insert("Stock",0);
+        skill.insert("FP",0);
+        skills.insert((*it).toString(),skill);
+    }
+    insert("Fertigkeiten",skills);
+
+    QJsonArray weapons;
+    insert("Kampfwerte",weapons);
+}
 AnimalData::AnimalData(const QJsonObject &obj):QJsonObject(obj){}
 AnimalData::AnimalData(const AnimalData &anim):QJsonObject(anim){}
 
 
-void AnimalData::createTexFileFromAnimalDataArray(QVector<AnimalData> &animalData, QString filename)
+void AnimalData::createTexFileFromAnimalDataArray(QVector<AnimalData> &animalData,const QString &filename)
 {
     QString texBody;
     int iCurrentMinipage=0;
@@ -165,6 +213,7 @@ QString AnimalData::toTexMinipageString() const
 
     return str;
 }
+
 
 void AnimalData::createEmptyAnimalFile(QString filename)
 {
