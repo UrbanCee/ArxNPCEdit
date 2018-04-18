@@ -27,9 +27,9 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     customwidgets.cpp \
-    chardata.cpp \
     jsonclasses.cpp \
-    texwriter.cpp
+    texwriter.cpp \
+    chardata.cpp
 
 HEADERS += \
         mainwindow.h \

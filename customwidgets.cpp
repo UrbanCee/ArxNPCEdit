@@ -222,6 +222,7 @@ void CWeaponObject::initialize(QWidget *parent)
     labelDice = new QLabel("W6",parent);
     boxIniStock = new CAttributeSpinBox(parent,metaData.at(3));
     edtIniDice = new CAttributeLineEdit(parent,metaData.at(4),"W6?");
+    edtIniDice->setText("W6");
     boxAvAngr = new CAttributeSpinBox(parent,metaData.at(5));
     edtDmgDice = new CAttributeLineEdit(parent,metaData.at(7),"zB 2W8");
     boxDmgStock = new CAttributeSpinBox(parent,metaData.at(6));
