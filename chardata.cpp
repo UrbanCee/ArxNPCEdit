@@ -196,20 +196,22 @@ QString AnimalData::toTexMinipageString() const
         wepIni.append(QString("&%1+{\\scriptsize %2}").arg(currObj["Initiative Stock"].toInt()).arg(currObj["Initiative Würfel"].toString()));
         webAvAngAvR.append(QString("&%1+%2").arg(currObj["Ausdauerverbrauch Angriff"].toInt()).arg(obj("Weitere Werte")["Ausdauerverbrauch Rüstung"].toInt()));
         int iSchaden=currObj["Schaden Stock"].toInt();
-        QString schadenWürfel=currObj["Schaden Würfel"].toString();
-        if (schadenWürfel.isEmpty())
-            webDmg.append("&%1").append(iSchaden);
+        QString damageDice=currObj["Schaden Würfel"].toString();
+        if (damageDice.isEmpty())
+            webDmg.append(QString("&%1").arg(iSchaden));
         else{
             if (iSchaden==0)
             {
-                webDmg.append(QString("&{\\scriptsize %1}").arg(schadenWürfel);
+                webDmg.append(QString("&{\\scriptsize %1}").arg(damageDice));
             }else{
                 QString qstrSchadensStockVorzeichen("$+$");
                 if (currObj["Schaden Stock"].toInt()<0)
                     qstrSchadensStockVorzeichen=QString("$-$");
-                webDmg.append(QString("&{\\scriptsize %1}%2%3").arg(schadenWürfel).arg(qstrSchadensStockVorzeichen).arg(qAbs(iSchaden)));
+                webDmg.append(QString("&{\\scriptsize %1}%2%3").arg(damageDice).arg(qstrSchadensStockVorzeichen).arg(qAbs(iSchaden)));
             }
+
         }
+        //qDebug() << obj()["Name"].toString() << wepName << webDmg;
     }
 
     str.append(QString("\\begin{minipage}{1.0\\textwidth}\\begin{tabular}{|l|%1}\\hline\n").arg(wepTabularCreation));
