@@ -293,7 +293,7 @@ void MainWindow::createWidgets()
     gridAddVals->addWidget(new QLabel("Geistige Festigkeit:"),iRow++,0,1,1);
     gridAddVals->addWidget(new QLabel("Magieresistenz:"),iRow++,0,1,1);
     gridAddVals->addWidget(new QLabel("Magierenitenz:"),iRow++,0,1,1);
-    gridAddVals->addWidget(new QLabel("Rüstungsschutz mag./nat."),iRow++,0,1,1);
+    gridAddVals->addWidget(new QLabel("Rüstungsschutz nat./mag."),iRow++,0,1,1);
     gridAddVals->addWidget(new QLabel("AvR / BeMa"),iRow++,0,1,1);
     iRow=0;
     QStringList listAdditionalValues;

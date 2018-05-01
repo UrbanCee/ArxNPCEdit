@@ -154,8 +154,10 @@ QString AnimalData::toTexMinipageString() const
     str.append(Tex::animalSpecial(QString("TK"),obj("Weitere Werte")["Tragkraft einfach"].toInt(),obj("Weitere Werte")["Tragkraft voll"].toInt()));
     str.append(Tex::animalSpecial(QString("SK/ZG"),obj("Weitere Werte")["Stemmkraft"].toInt(),obj("Weitere Werte")["Zugkraft"].toInt()));
     str.append(QString("GF:&\\multicolumn{3}{c|}{%1}\\\\\\hline\n").arg(obj("Weitere Werte")["Geistige Festigkeit"].toInt()));
-    str.append(QString("Mres:&\\multicolumn{3}{c|}{%1}\\\\\\hline\n").arg(obj("Weitere Werte")["Magieresistenz"].toInt()));
-    str.append(QString("Mren:&\\multicolumn{3}{c|}{%1}\\\\\\hline\n").arg(obj("Weitere Werte")["Magierenitenz"].toInt()));
+    int iMagRes=obj("Weitere Werte")["Magieresistenz"].toInt();
+    str.append(QString("Mres:&\\multicolumn{3}{c|}{%1}\\\\\\hline\n").arg(  (iMagRes==0?QString("-"):QString("%1\\\%").arg(QString::number(iMagRes)))  ));
+    int iMagRen=obj("Weitere Werte")["Magierenitenz"].toInt();
+    str.append(QString("Mren:&\\multicolumn{3}{c|}{%1}\\\\\\hline\n").arg( (iMagRen==0?QString("-"):QString::number(iMagRen))  ));
     str.append("&&&\\\\[-2.5ex]\\hline\n&&&\\\\[-2.5ex]\n");
     str.append(Tex::animalSpecial(QString("RsN/RsM"),obj("Weitere Werte")["Rüstungsschutz natürlich"].toInt(),obj("Weitere Werte")["Rüstungsschutz magisch"].toInt()));
     str.append("&&&\\\\[-2.5ex]\n");
