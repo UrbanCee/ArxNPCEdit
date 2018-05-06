@@ -94,6 +94,8 @@ void MainWindow::on_actionNPC_Datei_laden_triggered()
     if (fileName.isEmpty() || !fileName.toLower().endsWith(".animal.json"))
         return;
     animalData.clear();
+    QDir::setCurrent(QFileInfo(fileName).path());
+    qDebug() << QFileInfo(fileName).path();
     animalData = AnimalData::loadAnimalFile(fileName);
     ui->comboAnimalSelector->blockSignals(true);
     ui->comboAnimalSelector->clear();
@@ -113,6 +115,7 @@ void MainWindow::on_actionNPC_Datei_speichern_triggered()
     QString fileName = QFileDialog::getSaveFileName(this,"Speichere NPC Datei",QDir::currentPath(),"*.animal.json");
     if (fileName.isEmpty())
         return;
+    QDir::setCurrent(QFileInfo(fileName).path());
     if (!fileName.toLower().endsWith(".animal.json"))
         fileName.append(".animal.json");
     AnimalData::writeAnimalFile(animalData,fileName);
@@ -124,6 +127,7 @@ void MainWindow::on_actionTEX_File_erzeugen_triggered()
     QString fileName = QFileDialog::getSaveFileName(this,"Exportiere TEX file",QDir::currentPath(),"*.tex");
     if (fileName.isEmpty())
         return;
+    QDir::setCurrent(QFileInfo(fileName).path());
     if (!fileName.toLower().endsWith(".tex"))
         fileName.append(".tex");
     AnimalData::createTexFileFromAnimalDataArray(animalData,fileName);

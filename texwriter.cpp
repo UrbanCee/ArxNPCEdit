@@ -15,7 +15,7 @@ QString Tex::embedIntoDocument(const QString &filler)
 
 QString Tex::quarterPageMiniSetup(const QString &str)
 {
-    return QString("\\fbox{\\begin{minipage}[t][0.48\\textheight][c]{0.48\\textwidth}\n%1\n\\end{minipage}}").arg(str);
+    return QString("\\begin{minipage}[t][0.48\\textheight][c]{0.48\\textwidth}\\flushleft\n%1\n\\end{minipage}").arg(str);
 }
 
 QString Tex::animalAttrib(const QString &attribName, int iValue)

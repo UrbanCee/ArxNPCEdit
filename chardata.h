@@ -19,7 +19,6 @@ public:
     AnimalData(const AnimalData &);
     QString toTexMinipageString() const ;
 
-    static void createEmptyAnimalFile(QString filename);
     static QVector<AnimalData> loadAnimalFile(const QString &filename);
     static bool writeAnimalFile(const QVector<AnimalData> &,const QString &);
     static void createTexFileFromAnimalDataArray(QVector<AnimalData> &,const QString &filename);

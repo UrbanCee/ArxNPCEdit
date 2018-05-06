@@ -87,12 +87,12 @@ void AnimalData::createTexFileFromAnimalDataArray(QVector<AnimalData> &animalDat
         if (iCurrentMinipage>0){
             if (iCurrentMinipage%2==1)
             {
-                texBody.append(" \\hspace{0.1cm}\n");
+                texBody.append(" \\hspace{0.2cm}\n");
             }else if (iCurrentMinipage%4==0)
             {
                 texBody.append("\n\n\\pagebreak\n");
             }else{
-                texBody.append("\n\n\\vspace{0.2cm}\n");
+                texBody.append("\n\n\\vspace{0.5cm}\n");
             }
         }
         texBody.append(Tex::quarterPageMiniSetup(data.toTexMinipageString()));
@@ -115,13 +115,14 @@ void AnimalData::createTexFileFromAnimalDataArray(QVector<AnimalData> &animalDat
 
 QString AnimalData::toTexMinipageString() const
 {
-    QJsonObject metaData = readJson(":/res/MetaData_Animals.Arx.json");
     QString str;
-    str.append(QString("\\vspace{0.2cm}{\\hspace{1cm}\\large\\textbf{%1}}\n\n\\vspace{0.2cm}\n").arg(obj()["Name"].toString()));
-    str.append("\\begin{minipage}{0.48\\textwidth}\\centering\n\\renewcommand{\\arraystretch}{0.9}\n\\begin{tabular}{ll}\n");
-    for (QJsonObject::iterator it=obj("Attribute").begin();it!=obj("Attribute").end();it++)
+    str.append(QString("{\\hspace{1cm}\\large\\textbf{%1}}\\flushright\n\n").arg(obj()["Name"].toString()));
+    str.append("\\begin{minipage}{0.47\\textwidth}\\centering\n\\renewcommand{\\arraystretch}{0.9}\n\\begin{tabular}{ll}\n");
+    QJsonArray attrNames = metaData["Attribute"].toArray();
+    for (QJsonArray::const_iterator it=attrNames.begin();it!=attrNames.end();it++)
     {
-        str.append(Tex::animalAttrib(it.key(),it.value().toInt()));
+        QString attrName=it->toString();
+        str.append(Tex::animalAttrib(attrName,obj("Attribute")[attrName].toInt()));
     }
     str.append("&\\\\[-1ex]");
     str.append(Tex::animalAttrib("Lebensblock",obj("Weitere Werte")["Lebensblock"].toInt()));
@@ -131,7 +132,7 @@ QString AnimalData::toTexMinipageString() const
     str.append(Tex::animalAttrib("Vorkommen",obj("Weitere Werte")["Vorkommen"].toInt()));
     str.append("\\end{tabular}\\end{minipage}\n");
 
-    str.append("\\begin{minipage}{0.48\\textwidth}\\flushleft\n\\begin{tabular}{|l|}\\hline\n"
+    str.append("\\begin{minipage}{0.49\\textwidth}\\flushright\n\\begin{tabular}{|l|}\\hline\n"
                "\\\\[-2.2ex]\n"
                "\\multicolumn{1}{|c|}{\\textbf{Besondere Fähigkeiten}}\\\\\\hline\n");
     QJsonArray specials = obj()["Besondere Fähigkeiten"].toArray();
@@ -144,10 +145,10 @@ QString AnimalData::toTexMinipageString() const
     }
     str.append("\\hline\\end{tabular}\\end{minipage}\n\n\\vspace{0.1cm}");
 
-    str.append("\\begin{minipage}{0.4\\textwidth}\\begin{tabular}{|l|r@{\\em}c@{\\em}l|}\\hline\n");
+    str.append("\\begin{minipage}{0.39\\textwidth}\\flushright\\begin{tabular}{|l|r@{\\em}c@{\\em}l|}\\hline\n");
     str.append("\\multicolumn{4}{|c|}{ }\\\\[-2.2ex]\n");
     str.append("\\multicolumn{4}{|c|}{\\textbf{Weitere Werte}}\\\\\\hline\n");
-    str.append("&&&\\\\[-2.5ex]\n");
+    str.append("&\\phantom{999}&\\phantom{/}&\\phantom{999}\\\\[-2.5ex]\n");
     str.append(Tex::animalSpecial("LL",obj("Weitere Werte")["Laufleistung einfach"].toInt(),obj("Weitere Werte")["Laufleistung voll"].toInt()));
     str.append(Tex::animalSpecial(QString("SL"),obj("Weitere Werte")["Schwimmleistung einfach"].toInt(),obj("Weitere Werte")["Schwimmleistung voll"].toInt()));
     str.append(Tex::animalSpecial(QString("FL"),obj("Weitere Werte")["Flugleistung einfach"].toInt(),obj("Weitere Werte")["Flugleistung voll"].toInt()));
@@ -164,7 +165,7 @@ QString AnimalData::toTexMinipageString() const
     str.append(Tex::animalSpecial(QString("AvR/BM"),obj("Weitere Werte")["Ausdauerverbrauch Rüstung"].toInt(),obj("Weitere Werte")["Bewegungsmalus"].toInt()));
     str.append("\\end{tabular}\\end{minipage}\n");
 
-    str.append("\\begin{minipage}{0.4\\textwidth}\\begin{tabular}{|l@{\\hskip 0.5em}r@{\\em}c@{\\em}l|}\\hline\n");
+    str.append("\\begin{minipage}{0.55\\textwidth}\\flushright\\begin{tabular}{|l@{\\hskip 0.5em}r@{\\em}c@{\\em}l|}\\hline\n");
     str.append("&&&\\\\[-2.2ex]\n");
     str.append("\\multicolumn{4}{|c|}{\\textbf{Fertigkeiten}}\\\\\\hline\n&&&\\\\[-2.5ex]");
 
@@ -184,7 +185,7 @@ QString AnimalData::toTexMinipageString() const
         str.append("\n&&&\\\\");
 
 
-    str.append("[-2.8ex]\n\\phantom{Wahrnehmung}&\\phantom{99}&\\phantom{+}&\\phantom{\\scriptsize W12+2W6+W4}\\\\\\hline\\end{tabular}\\end{minipage}");
+    str.append("[-2.8ex]\n\\phantom{Wahrnehmung}&\\phantom{99}&\\phantom{+}&\\phantom{\\scriptsize W12+W6+W4}\\\\\\hline\\end{tabular}\\end{minipage}");
     str.append("\n\n\\vspace{0.1cm}\n\n");
 
     QJsonArray weaponsArray = obj()["Kampfwerte"].toArray();
@@ -216,7 +217,7 @@ QString AnimalData::toTexMinipageString() const
         //qDebug() << obj()["Name"].toString() << wepName << webDmg;
     }
 
-    str.append(QString("\\begin{minipage}{1.0\\textwidth}\\begin{tabular}{|l|%1}\\hline\n").arg(wepTabularCreation));
+    str.append(QString("\\begin{minipage}{0.95\\textwidth}\\begin{tabular}{|l|%1}\\hline\n").arg(wepTabularCreation));
     str.append(QString("\\textbf{Kampfwerte}%1\\\\\\hline\n").arg(wepName));
     str.append(QString("AngS.+AW:%1\\\\\\hline\n").arg(wepAngsAW));
     str.append(QString("Ini:%1\\\\\\hline\n").arg(wepIni));
@@ -230,73 +231,4 @@ QString AnimalData::toTexMinipageString() const
     return str;
 }
 
-
-void AnimalData::createEmptyAnimalFile(QString filename)
-{
-    QJsonObject metaData=readJson(":/res/MetaData_Animals.Arx.json");
-    if (metaData.isEmpty())
-    {
-        qDebug()<<"Error reading meta Data";
-        return;
-    }
-    QJsonObject data;
-    data.insert("Name",QString("NameOfAnimal"));
-    QJsonObject attributes;
-    QJsonArray attrNames = metaData["Attribute"].toArray();
-    for (QJsonArray::const_iterator it=attrNames.begin();it!=attrNames.end();it++)
-    {
-        attributes.insert((*it).toString(),6);
-    }
-    data.insert("Attribute",attributes);
-
-    QJsonObject additionalData;
-    QJsonArray additionalDataMeta = metaData["Weitere Werte"].toArray();
-    for (QJsonArray::const_iterator it=additionalDataMeta.begin();it!=additionalDataMeta.end();it++)
-    {
-        additionalData.insert((*it).toString(),0);
-    }
-    data.insert("Weitere Werte",additionalData);
-
-    QJsonArray specials;
-    specials.append("Dunkelsicht");
-    specials.append("Kälteschutz IV");
-    data.insert("Besondere Fähigkeiten",specials);
-
-    QJsonObject skills;
-    QJsonArray skillNames = metaData["Fertigkeiten"].toArray();
-    for (QJsonArray::const_iterator it=skillNames.begin();it!=skillNames.end();it++)
-    {
-        QJsonObject skill;
-        skill.insert("Stock",0);
-        skill.insert("FP",0);
-        skills.insert((*it).toString(),skill);
-    }
-    data.insert("Fertigkeiten",skills);
-
-    QJsonArray weapons;
-    QJsonObject weapon;
-
-    QJsonArray weaponValues= metaData["Kampfwerte"].toArray();
-    for (QJsonArray::const_iterator it=weaponValues.begin();it!=weaponValues.end();it++)
-    {
-        weapon.insert((*it).toString(),0);
-    }
-    weapon.insert("Name","Waffe 1");
-    weapon.insert("Initiative Würfel","W6");
-    weapon.insert("Schaden Würfel","2W4");
-    weapons.append(weapon);
-    weapon.insert("Name","Waffe 2");
-    weapons.append(weapon);
-    data.insert("Kampfwerte",weapons);
-
-    QJsonArray animalArray;
-    animalArray.append(data);
-    animalArray.append(data);
-
-    QJsonObject animals;
-    animals.insert("Tiere",animalArray);
-
-    writeJson(filename,animals);
-
-}
 
