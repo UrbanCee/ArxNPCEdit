@@ -33,6 +33,8 @@ private slots:
 
     void on_actionTEX_File_erzeugen_triggered();
 
+    void on_actionPdf_File_erzeugen_LaTeX_req_triggered();
+
 private:
     Ui::MainWindow *ui;
     QVector<AnimalData> animalData;

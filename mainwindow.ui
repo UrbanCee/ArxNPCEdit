@@ -161,6 +161,7 @@
     <addaction name="actionNPC_Datei_speichern"/>
     <addaction name="separator"/>
     <addaction name="actionTEX_File_erzeugen"/>
+    <addaction name="actionPdf_File_erzeugen_LaTeX_req"/>
    </widget>
    <addaction name="menuDatei"/>
   </widget>
@@ -186,6 +187,11 @@
   <action name="actionTEX_File_erzeugen">
    <property name="text">
     <string>TEX-File erzeugen</string>
+   </property>
+  </action>
+  <action name="actionPdf_File_erzeugen_LaTeX_req">
+   <property name="text">
+    <string>Pdf-File erzeugen (LaTeX req.)</string>
    </property>
   </action>
  </widget>

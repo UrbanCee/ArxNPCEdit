@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QFrame>
 #include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -132,6 +133,36 @@ void MainWindow::on_actionTEX_File_erzeugen_triggered()
         fileName.append(".tex");
     AnimalData::createTexFileFromAnimalDataArray(animalData,fileName);
 }
+
+void MainWindow::on_actionPdf_File_erzeugen_LaTeX_req_triggered()
+{
+#ifndef Q_OS_WIN
+    QMessageBox::critical(this,"Error running PDFLatex","PDF creation is currently only implemented for Windows. \nUse \"TEX file erzeugen\" instead.");
+    return;
+#endif
+    gui2Data();
+    QProcess pdfLatexProc;
+    pdfLatexProc.start("pdflatex.exe",QStringList() << "-help");
+    if (!pdfLatexProc.waitForFinished(30000)){
+        QMessageBox::critical(this,"Error running PDFLatex","PDF not installed or crashed. \nInstall MikTex!");
+        return;
+    }
+    QString fileName = QFileDialog::getSaveFileName(this,"Exportiere PDF file",QDir::currentPath(),"*.pdf");
+    if (fileName.isEmpty())
+        return;
+    QDir::setCurrent(QFileInfo(fileName).path());
+    if (!fileName.toLower().endsWith(".pdf"))
+        fileName.append(".pdf");
+    QString fileNameTex=fileName.remove(fileName.size()-4,4)+".tex";
+    AnimalData::createTexFileFromAnimalDataArray(animalData,fileNameTex);
+    pdfLatexProc.start("pdflatex.exe",QStringList() << fileNameTex);
+    if (!pdfLatexProc.waitForFinished(30000)){
+        QString returnString(pdfLatexProc.readAll());
+        QMessageBox::critical(this,"Error running PDFLatex",QString("Could not create %1!\n\nError Log:\n").arg(fileName)+returnString);
+        return;
+    }
+}
+
 
 
 
@@ -351,6 +382,7 @@ void MainWindow::createWidgets()
     connect(butAddWeapon,SIGNAL(clicked(bool)),this,SLOT(createNewWeapon()));
     updateWeaponLayout();
 }
+
 
 
 
