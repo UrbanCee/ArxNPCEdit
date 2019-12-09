@@ -96,7 +96,6 @@ void MainWindow::on_actionNPC_Datei_laden_triggered()
         return;
     animalData.clear();
     QDir::setCurrent(QFileInfo(fileName).path());
-    qDebug() << QFileInfo(fileName).path();
     animalData = AnimalData::loadAnimalFile(fileName);
     ui->comboAnimalSelector->blockSignals(true);
     ui->comboAnimalSelector->clear();
@@ -153,14 +152,23 @@ void MainWindow::on_actionPdf_File_erzeugen_LaTeX_req_triggered()
     QDir::setCurrent(QFileInfo(fileName).path());
     if (!fileName.toLower().endsWith(".pdf"))
         fileName.append(".pdf");
+    QString pdfFileName=fileName;
     QString fileNameTex=fileName.remove(fileName.size()-4,4)+".tex";
     AnimalData::createTexFileFromAnimalDataArray(animalData,fileNameTex);
     pdfLatexProc.start("pdflatex.exe",QStringList() << fileNameTex);
-    if (!pdfLatexProc.waitForFinished(30000)){
+    if (pdfLatexProc.waitForFinished(30000)){
+        QDesktopServices::openUrl(QString("file:///%1").arg(pdfFileName));
+    }else{
         QString returnString(pdfLatexProc.readAll());
         QMessageBox::critical(this,"Error running PDFLatex",QString("Could not create %1!\n\nError Log:\n").arg(fileName)+returnString);
-        return;
     }
+    QDir dir(QFileInfo(fileName).path());
+    if (ui->actionTeX_File_beim_Erstellen_von_PDF_l_schen->isChecked())
+        dir.remove(fileNameTex);
+    QString baseFileName=QFileInfo(fileName).fileName();
+    baseFileName.remove(".tex");
+    dir.remove(QString("%1.log").arg(baseFileName));
+    dir.remove(QString("%1.aux").arg(baseFileName));
 }
 
 

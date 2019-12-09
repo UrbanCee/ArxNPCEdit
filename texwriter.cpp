@@ -43,7 +43,7 @@ QString Tex::skill2Dice(int FP)
     case 1:
         return QString("{\\scriptsize 2W4}");
     case 2:
-        return QString("{\\scriptsize W6+w4}");
+        return QString("{\\scriptsize W6+W4}");
     case 3:
         return QString("{\\scriptsize 2W6}");
     case 4:

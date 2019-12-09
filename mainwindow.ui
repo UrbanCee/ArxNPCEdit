@@ -163,7 +163,14 @@
     <addaction name="actionTEX_File_erzeugen"/>
     <addaction name="actionPdf_File_erzeugen_LaTeX_req"/>
    </widget>
+   <widget class="QMenu" name="menuEinstellungen">
+    <property name="title">
+     <string>Einstellungen</string>
+    </property>
+    <addaction name="actionTeX_File_beim_Erstellen_von_PDF_l_schen"/>
+   </widget>
    <addaction name="menuDatei"/>
+   <addaction name="menuEinstellungen"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -192,6 +199,17 @@
   <action name="actionPdf_File_erzeugen_LaTeX_req">
    <property name="text">
     <string>Pdf-File erzeugen (LaTeX req.)</string>
+   </property>
+  </action>
+  <action name="actionTeX_File_beim_Erstellen_von_PDF_l_schen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>TeX-File beim Erstellen von PDF löschen</string>
    </property>
   </action>
  </widget>
