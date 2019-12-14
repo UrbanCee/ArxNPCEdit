@@ -156,7 +156,7 @@ QString AnimalData::toTexMinipageString() const
     str.append(Tex::animalSpecial(QString("SK/ZG"),obj("Weitere Werte")["Stemmkraft"].toInt(),obj("Weitere Werte")["Zugkraft"].toInt()));
     str.append(QString("GF:&\\multicolumn{3}{c|}{%1}\\\\\\hline\n").arg(obj("Weitere Werte")["Geistige Festigkeit"].toInt()));
     int iMagRes=obj("Weitere Werte")["Magieresistenz"].toInt();
-    str.append(QString("Mres:&\\multicolumn{3}{c|}{%1}\\\\\\hline\n").arg(  (iMagRes==0?QString("-"):QString("%1\\\%").arg(QString::number(iMagRes)))  ));
+    str.append(QString("Mres:&\\multicolumn{3}{c|}{%1}\\\\\\hline\n").arg(  (iMagRes==0?QString("-"):QString("%1\\\\%").arg(QString::number(iMagRes)))  ));
     int iMagRen=obj("Weitere Werte")["Magierenitenz"].toInt();
     str.append(QString("Mren:&\\multicolumn{3}{c|}{%1}\\\\\\hline\n").arg( (iMagRen==0?QString("-"):QString::number(iMagRen))  ));
     str.append("&&&\\\\[-2.5ex]\\hline\n&&&\\\\[-2.5ex]\n");

@@ -4,6 +4,7 @@
 CObjectInterface::CObjectInterface(const QString &name)
     :qstrName(name)
 {}
+CObjectInterface::~CObjectInterface(){}
 
 
 CAttributeSpinBox::CAttributeSpinBox(QWidget *parent, const QString &name)

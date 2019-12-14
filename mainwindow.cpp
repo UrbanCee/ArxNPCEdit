@@ -278,10 +278,10 @@ void MainWindow::updateWeaponLayout()
     grid->addWidget(butAddWeapon,0,iColumn,1,1);
     grid->setColumnStretch(10,100);
     QGridLayout * oldGrid = dynamic_cast<QGridLayout *>(ui->groupBoxWeapons->layout());
-    if (oldGrid!=0)
+    if (oldGrid!=nullptr)
     {
         QLayoutItem *item;
-        while((item = oldGrid->takeAt(0)) != 0)
+        while((item = oldGrid->takeAt(0)) != nullptr)
             delete item;
     }
     delete oldGrid;

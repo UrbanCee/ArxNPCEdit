@@ -17,6 +17,7 @@ class CObjectInterface
 {
 public:
     CObjectInterface(const QString &name);
+    virtual ~CObjectInterface() = 0;
     virtual QJsonValue getJsonValue() const = 0;
     virtual void setJsonValue(QJsonValue) = 0;
     QString getName() const {return qstrName;}
@@ -39,6 +40,7 @@ class CSkillSpinBox : public QSpinBox, public CObjectInterface
     Q_OBJECT
 public:
     CSkillSpinBox(QWidget *, const QString &);
+    ~CSkillSpinBox(){}
     QString getDice();
     static QString getDice(int);
     QJsonValue getJsonValue() const {return QJsonValue(value());}
@@ -46,7 +48,7 @@ public:
 public slots:
     void updateDice();
 signals:
-    diceUpdated(QString);
+    void diceUpdated(QString);
 };
 
 class CSkillObject : public QObject, public CObjectInterface
@@ -54,6 +56,7 @@ class CSkillObject : public QObject, public CObjectInterface
     Q_OBJECT
 public:
     CSkillObject(QWidget *parent, const QString &);
+    ~CSkillObject(){}
     QJsonObject getSkillObj() const;
     CAttributeSpinBox *boxStock;
     CSkillSpinBox *boxFP;
@@ -70,6 +73,7 @@ class CAttributeLineEdit : public QLineEdit, public CObjectInterface
     Q_OBJECT
 public:
     CAttributeLineEdit(QWidget *, const QString &, const QString &);
+    ~CAttributeLineEdit(){}
     QJsonValue getJsonValue() const {return QJsonValue(text());}
     void setJsonValue(QJsonValue value){setText(value.toString());}
 private:
