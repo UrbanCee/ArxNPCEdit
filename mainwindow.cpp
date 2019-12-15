@@ -7,6 +7,8 @@
 #include <QFrame>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QGuiApplication>
+#include <QClipboard>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -39,12 +41,17 @@ void MainWindow::updateName()
 
 void MainWindow::addNPC()
 {
+    addNPC(AnimalData());
+}
+
+void MainWindow::addNPC(const AnimalData &data)
+{
     gui2Data();
     ui->comboAnimalSelector->blockSignals(true);
     ui->comboAnimalSelector->addItem(QString());
     ui->comboAnimalSelector->setCurrentIndex(ui->comboAnimalSelector->count()-1);
     ui->comboAnimalSelector->blockSignals(false);
-    animalData.append(AnimalData());
+    animalData.append(data);
     iUnsavedIndex=ui->comboAnimalSelector->currentIndex();
     data2Gui();
     ui->pushButtonDeleteCurrent->setEnabled(true);
@@ -394,3 +401,19 @@ void MainWindow::createWidgets()
 
 
 
+
+void MainWindow::on_actionEinf_gen_aus_Zwischenablage_triggered()
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    QJsonParseError error;
+    QJsonDocument doc=QJsonDocument::fromJson(clipboard->text().toUtf8(),&error);
+    if (error.error==QJsonParseError::NoError){
+        QJsonObject newNPC=doc.object();
+        addNPC(AnimalData(newNPC));
+        statusBar()->showMessage(QString("Character %1 aus Zwischenablage eingefügt").arg(newNPC.value("Name").toString()),5000);
+    }else{
+        statusBar()->showMessage(QString("Einfügen nicht möglich: Parse Error"));
+        qDebug() << "Error parsing Clipboard Object!\n";
+        qDebug() << error.errorString();
+    }
+}

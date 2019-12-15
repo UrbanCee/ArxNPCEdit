@@ -150,7 +150,7 @@
      <x>0</x>
      <y>0</y>
      <width>955</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatei">
@@ -162,6 +162,8 @@
     <addaction name="separator"/>
     <addaction name="actionTEX_File_erzeugen"/>
     <addaction name="actionPdf_File_erzeugen_LaTeX_req"/>
+    <addaction name="separator"/>
+    <addaction name="actionEinf_gen_aus_Zwischenablage"/>
    </widget>
    <widget class="QMenu" name="menuEinstellungen">
     <property name="title">
@@ -210,6 +212,14 @@
    </property>
    <property name="text">
     <string>TeX-File beim Erstellen von PDF löschen</string>
+   </property>
+  </action>
+  <action name="actionEinf_gen_aus_Zwischenablage">
+   <property name="text">
+    <string>Einfügen aus Zwischenablage</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+V</string>
    </property>
   </action>
  </widget>

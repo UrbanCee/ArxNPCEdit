@@ -19,6 +19,7 @@ public:
     ~MainWindow();
 public slots:
     void addNPC();
+    void addNPC(const AnimalData &);
     void deleteCurrentNPC();
     void createNewWeapon();
     void removeWeapon(CWeaponObject *);
@@ -34,6 +35,8 @@ private slots:
     void on_actionTEX_File_erzeugen_triggered();
 
     void on_actionPdf_File_erzeugen_LaTeX_req_triggered();
+
+    void on_actionEinf_gen_aus_Zwischenablage_triggered();
 
 private:
     Ui::MainWindow *ui;
