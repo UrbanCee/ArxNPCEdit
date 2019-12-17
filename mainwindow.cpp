@@ -191,6 +191,7 @@ void MainWindow::data2Gui()
         weaponObjects.last()->removeThisObject();
     AnimalData &animal=animalData[iIndex];
     ui->lineEditName->setText(animal["Name"].toString());
+    ui->comboAnimalSelector->setItemText(ui->comboAnimalSelector->currentIndex(),ui->lineEditName->text());
     QJsonObject skillJsonObject = animal["Fertigkeiten"].toObject();
     foreach (CSkillObject* obj,skillsObjects) {
         obj->setJsonValue(skillJsonObject[obj->getName()].toObject());
@@ -409,7 +410,17 @@ void MainWindow::on_actionEinf_gen_aus_Zwischenablage_triggered()
     QJsonDocument doc=QJsonDocument::fromJson(clipboard->text().toUtf8(),&error);
     if (error.error==QJsonParseError::NoError){
         QJsonObject newNPC=doc.object();
-        addNPC(AnimalData(newNPC));
+        if (ui->lineEditName->text().isEmpty())
+        {
+            if (ui->comboAnimalSelector->currentIndex()>=animalData.size())
+            {
+                qDebug() << "MainWindow::on_actionEinf_gen_aus_Zwischenablage_triggered()\nError: combo Index animal size mismatch";
+            }
+            animalData[ui->comboAnimalSelector->currentIndex()]=newNPC;
+            data2Gui();
+        }else{
+            addNPC(AnimalData(newNPC));
+        }
         statusBar()->showMessage(QString("Character %1 aus Zwischenablage eingefügt").arg(newNPC.value("Name").toString()),5000);
     }else{
         statusBar()->showMessage(QString("Einfügen nicht möglich: Parse Error"));
